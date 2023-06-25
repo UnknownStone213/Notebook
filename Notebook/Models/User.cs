@@ -1,13 +1,26 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Notebook.Models
 {
     public class User
     {
+        [Key]
         public int Id { get; set; }
-        public string Email { get; set; }
-        public string Login { get; set; }
-        public string Password { get; set; }
+
+        [Required]
+		[RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}")]
+		public string Email { get; set; }
+
+        [Required]
+		[StringLength(30, MinimumLength = 3)]
+		public string Login { get; set; }
+
+		[Required]
+        [DataType(DataType.Password)]
+		public string Password { get; set; }
+
+        [Required]
         public string Role { get; set; } = "user";
     }
 }

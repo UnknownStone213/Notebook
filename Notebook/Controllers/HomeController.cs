@@ -27,9 +27,13 @@ namespace Notebook.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(User user)
         {
-            db.Users.Add(user);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid && (user.Role == "user" || user.Role == "admin"))
+            {
+				db.Users.Add(user);
+				await db.SaveChangesAsync();
+				return RedirectToAction("Index");
+			}
+            return View(user);
         }
         [HttpPost]
         public async Task<IActionResult> Delete(int? id)
@@ -58,14 +62,13 @@ namespace Notebook.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(User user)
         {
-            db.Users.Update(user);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
+            if (user.Role == "user" || user.Role == "admin")
+            {
+				db.Users.Update(user);
+				await db.SaveChangesAsync();
+				return RedirectToAction("Index");
+			}
+            return View(user);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

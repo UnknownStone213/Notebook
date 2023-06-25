@@ -1,6 +1,6 @@
 ﻿@model Notebook.Models.User
 
-<h2>Редактирование пользователя</h2>
+<h2>Edit user</h2>
 <form asp-action="edit" asp-controller="home" asp-route-id="@Model.Id">
     <p>
         <label asp-for="Email">Email</label><br />
@@ -19,6 +19,6 @@
         <input type="text" asp-for="Role" />
     </p>
     <p>
-        <input type="submit" value="Сохранить" />
+        <input type="submit" value="Save" />
     </p>
 </form>
