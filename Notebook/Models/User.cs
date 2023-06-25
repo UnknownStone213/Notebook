@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Notebook.Models
@@ -10,6 +11,7 @@ namespace Notebook.Models
 
         [Required]
         [EmailAddress]
+        [StringLength(50)]
 		public string Email { get; set; }
 
         [Required]

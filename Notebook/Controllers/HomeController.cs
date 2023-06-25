@@ -2,6 +2,9 @@
 using Notebook.Models;
 using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Notebook.Controllers
 {
@@ -20,10 +23,12 @@ namespace Notebook.Controllers
         {
             return View(await db.Users.ToListAsync());
         }
+
         public IActionResult Create()
         {
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> Create(User user)
         {
@@ -35,6 +40,7 @@ namespace Notebook.Controllers
 			}
             return View(user);
         }
+
         [HttpPost]
         public async Task<IActionResult> Delete(int? id)
         {
@@ -50,6 +56,7 @@ namespace Notebook.Controllers
             }
             return NotFound();
         }
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id != null)
@@ -59,6 +66,7 @@ namespace Notebook.Controllers
             }
             return NotFound();
         }
+
         [HttpPost]
         public async Task<IActionResult> Edit(User user)
         {
@@ -71,7 +79,20 @@ namespace Notebook.Controllers
             return View(user);
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public async Task<IActionResult> LogIn(UserLogInDto user) 
+        {
+
+        }
+
+		[Authorize]
+		public async Task<IActionResult> LogOut()
+		{
+			await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+			return RedirectToAction("Index", "Home");
+		}
+
+		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
