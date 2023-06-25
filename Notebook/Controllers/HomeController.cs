@@ -16,9 +16,20 @@ namespace Notebook.Controllers
             db = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View(db.Users.ToListAsync());
+            return View(await db.Users.ToListAsync());
+        }
+        public IActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Create(User user)
+        {
+            db.Users.Add(user);
+            await db.SaveChangesAsync();
+            return RedirectToAction("Index");
         }
 
         public IActionResult Privacy()

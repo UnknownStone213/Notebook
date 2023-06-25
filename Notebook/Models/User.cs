@@ -1,4 +1,6 @@
-﻿namespace Notebook.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Notebook.Models
 {
     public class User
     {

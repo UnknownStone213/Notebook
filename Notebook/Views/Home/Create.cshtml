@@ -1,0 +1,24 @@
+﻿@model Notebook.Models.User
+
+<h2>Добавление пользователя</h2>
+<form asp-action="create" asp-controller="home">
+    <p>
+        <label asp-for="Email">Email</label><br />
+        <input type="text" asp-for="Email" />
+    </p>
+    <p>
+        <label asp-for="Login">Login</label><br />
+        <input type="text" asp-for="Login" />
+    </p>
+    <p>
+        <label asp-for="Password">Password</label><br />
+        <input type="text" asp-for="Password" />
+    </p>
+    <p>
+        <label asp-for="Role">Role</label><br />
+        <input type="text" asp-for="Role" />
+    </p>
+    <p>
+        <input type="submit" value="Отправить" />
+    </p>
+</form>
