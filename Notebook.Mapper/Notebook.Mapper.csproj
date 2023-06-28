@@ -10,4 +10,9 @@
     <PackageReference Include="AutoMapper" Version="12.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Notebook.Common\Notebook.Common.csproj" />
+    <ProjectReference Include="..\Notebook.Models\Notebook.Models.csproj" />
+  </ItemGroup>
+
 </Project>

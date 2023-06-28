@@ -4,14 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Notebook.Common.Dto;
+using Notebook.Models;
 
 namespace Notebook.Mapper
 {
 	public class MapperProfile : Profile
 	{
 		public MapperProfile()
-		{
-			//CreateMap<UserCreateDto, User>();
+		{ 
+			CreateMap<UserCreateDto, User>();
 		}
 	}
 }
