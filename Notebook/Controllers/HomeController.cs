@@ -61,7 +61,7 @@ namespace Notebook.Controllers
                 return NotFound();
         }
 
-        public async Task<IActionResult> Edit(int id)
+        public IActionResult Edit(int id)
         {
             User? user = _userService.GetUserById(id);
             if (User.FindFirstValue(ClaimTypes.Email) == user.Email || User.FindFirstValue(ClaimTypes.Role) == "admin")
@@ -75,7 +75,7 @@ namespace Notebook.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(User user)
+        public IActionResult Edit(User user)
         {
             if ((user.Role == "user" || user.Role == "admin") && (User.FindFirstValue(ClaimTypes.Email) == user.Email || User.FindFirstValue(ClaimTypes.Role) == "admin"))
             {
@@ -85,7 +85,7 @@ namespace Notebook.Controllers
             return RedirectToAction("Index");
         }
 
-        public async Task<IActionResult> LogIn()
+        public IActionResult LogIn()
         {
             return View();
         }
