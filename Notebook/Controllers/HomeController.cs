@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Notebook.BusinessLogic.Interfaces;
 using Notebook.Common.Dto;
 using System.Security.Claims;
+using System.Runtime.CompilerServices;
 
 namespace Notebook.Controllers
 {
@@ -58,27 +59,29 @@ namespace Notebook.Controllers
                 return NotFound();
         }
 
-        //public async Task<IActionResult> Edit(int? id)
-        //{
-        //    if (id != null)
-        //    {
-        //        User? user = await db.Users.FirstOrDefaultAsync(p => p.Id == id);
-        //        if (user != null) return View(user);
-        //    }
-        //    return NotFound();
-        //}
+        public async Task<IActionResult> Edit(int id)
+        {
+            User? user = _userService.GetUserById(id);
+            if (User.FindFirstValue(ClaimTypes.Email) == user.Email)
+            {
+                return View(user);
+            }
+            else 
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
 
-        //     [HttpPost]
-        //     public async Task<IActionResult> Edit(User user)
-        //     {
-        //         if (user.Role == "user" || user.Role == "admin")
-        //         {
-        //	db.Users.Update(user);
-        //	await db.SaveChangesAsync();
-        //	return RedirectToAction("Index");
-        //}
-        //         return View(user);
-        //     }
+        [HttpPost]
+        public async Task<IActionResult> Edit(User user)
+        {
+            if (user.Role == "user" || user.Role == "admin")
+            {
+                _userService.EditUser(user);
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index");
+        }
 
         public async Task<IActionResult> LogIn()
         {
@@ -94,7 +97,8 @@ namespace Notebook.Controllers
             {
                 var claims = new List<Claim>()
                 {
-                    new Claim(ClaimTypes.Name, user.Email)
+                    new Claim(ClaimTypes.Email, user.Email),
+                    new Claim(ClaimTypes.Role, user.Role)
                 };
 
                 var claimIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

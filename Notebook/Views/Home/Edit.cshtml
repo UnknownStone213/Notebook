@@ -4,19 +4,19 @@
 <form asp-action="edit" asp-controller="home" asp-route-id="@Model.Id">
     <p>
         <label asp-for="Email">Email</label><br />
-        <input type="text" asp-for="Email" />
+        <input type="text" asp-for="Email" value="@Model.Email" />
     </p>
     <p>
         <label asp-for="Login">Login</label><br />
-        <input type="text" asp-for="Login" />
+        <input type="text" asp-for="Login" value="@Model.Login" />
     </p>
     <p>
         <label asp-for="Password">Password</label><br />
-        <input type="text" asp-for="Password" />
+        <input type="text" asp-for="Password" value="@Model.Password">
     </p>
     <p>
         <label asp-for="Role">Role</label><br />
-        <input type="text" asp-for="Role" />
+        <input type="text" asp-for="Role" value="@Model.Role" />
     </p>
     <p>
         <input type="submit" value="Save" />

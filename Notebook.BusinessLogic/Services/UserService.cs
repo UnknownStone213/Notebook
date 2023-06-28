@@ -60,5 +60,11 @@ namespace Notebook.BusinessLogic.Services
 			_applicationContext.Users.Remove(user);
 			_applicationContext.SaveChanges();
 		}
-	}
+
+        public void EditUser(User user)
+        {
+            _applicationContext.Users.Update(user);
+            _applicationContext.SaveChanges();
+        }
+    }
 }

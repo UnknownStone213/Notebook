@@ -19,5 +19,7 @@ namespace Notebook.BusinessLogic.Interfaces
 		User GetUserById(int id);
 
 		void DeleteUserById(int id);
+
+		void EditUser(User user);
 	}
 }
