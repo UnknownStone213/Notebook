@@ -1,6 +1,10 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Notebook.Models;
+using Notebook.Mapper;
+using AutoMapper;
+using Notebook.BusinessLogic.Interfaces;
+using Notebook.BusinessLogic.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

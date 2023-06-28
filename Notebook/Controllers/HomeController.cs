@@ -79,10 +79,10 @@ namespace Notebook.Controllers
             return View(user);
         }
 
-        public async Task<IActionResult> LogIn(UserLogInDto user) 
-        {
+        //public async Task<IActionResult> LogIn(UserLogInDto user) 
+        //{
 
-        }
+        //}
 
 		[Authorize]
 		public async Task<IActionResult> LogOut()
