@@ -28,5 +28,27 @@ namespace Notebook.BusinessLogic.Services
             _applicationContext.Notes.Add(note);
             _applicationContext.SaveChanges();
         }
+
+        public List<Note> GetAll()
+        {
+            var notes = _applicationContext.Notes.ToList();
+
+            return notes;
+        }
+
+        public void DeleteNoteById(int id)
+        {
+            var note = _applicationContext.Notes.FirstOrDefault(u =>
+                u.Id == id);
+
+            _applicationContext.Notes.Remove(note);
+            _applicationContext.SaveChanges();
+        }
+
+        public void EditNote(Note note)
+        {
+            _applicationContext.Notes.Update(note);
+            _applicationContext.SaveChanges();
+        }
     }
 }

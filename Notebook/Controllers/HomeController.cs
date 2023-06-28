@@ -16,11 +16,13 @@ namespace Notebook.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 		private readonly IUserService _userService;
+        private readonly INoteService _noteService;
 
-		public HomeController(ILogger<HomeController> logger, IUserService userService)
+        public HomeController(ILogger<HomeController> logger, IUserService userService, INoteService noteService)
         {
             _logger = logger;
 			_userService = userService;
+            _noteService = noteService;
 		}
 
         public IActionResult Index()
@@ -28,14 +30,14 @@ namespace Notebook.Controllers
             return View( _userService.GetAll());
         }
 
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         public IActionResult CreateUser()
         {
             return View();
         }
 
+        //[Authorize(Roles = "admin")]
         [HttpPost]
-        [Authorize(Roles = "admin")]
         public IActionResult CreateUser(UserCreateDto userCreateDto)
         {
             if (ModelState.IsValid && (userCreateDto.Role == "user" || userCreateDto.Role == "admin"))
@@ -124,7 +126,9 @@ namespace Notebook.Controllers
 			return RedirectToAction("Index", "Home");
 		}
 
-		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        //public IActionResult
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

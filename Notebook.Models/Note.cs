@@ -20,15 +20,13 @@ namespace Notebook.Models
         public DateTime Created { get; set; } = DateTime.Now;
 
         [Required]
-        [StringLength(30)]
+        [StringLength(50)]
         public string Name { get; set; }
 
         [StringLength(200)]
         public string? Description { get; set; }
 
-        public List<string>? Categories { get; set; }
-
-        public List<string>? Links { get; set; }
+        //public List<string>? Categories { get; set; }
 
         public byte[]? Photo { get; set; }
     }

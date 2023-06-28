@@ -11,5 +11,11 @@ namespace Notebook.BusinessLogic.Interfaces
     public interface INoteService
     {
         void Create(NoteCreateDto noteCreateDto);
+
+        List<Note> GetAll();
+
+        void DeleteNoteById(int id);
+
+        void EditNote(Note note);
     }
 }

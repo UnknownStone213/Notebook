@@ -12,7 +12,7 @@ namespace Notebook.Models
 	{
 		public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
 		{
-			Database.EnsureCreated();
+            Database.EnsureCreated();
         }
 
 		public DbSet<User> Users { get; set; }
