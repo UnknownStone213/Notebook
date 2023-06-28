@@ -16,6 +16,7 @@ builder.Services.AddAuthorization();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie();
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<INoteService, NoteService>();
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 
 var mappingConfig = new MapperConfiguration(mc =>

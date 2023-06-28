@@ -15,6 +15,7 @@ namespace Notebook.Mapper
 		{ 
 			CreateMap<UserCreateDto, User>();
             CreateMap<UserLogInDto, User>();
+			CreateMap<NoteCreateDto, Note>();
         }
 	}
 }
