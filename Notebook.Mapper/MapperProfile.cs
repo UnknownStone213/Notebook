@@ -14,6 +14,7 @@ namespace Notebook.Mapper
 		public MapperProfile()
 		{ 
 			CreateMap<UserCreateDto, User>();
-		}
+            CreateMap<UserLogInDto, User>();
+        }
 	}
 }

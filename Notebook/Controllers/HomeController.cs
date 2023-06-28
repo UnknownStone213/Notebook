@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Notebook.BusinessLogic.Interfaces;
 using Notebook.Common.Dto;
+using System.Security.Claims;
 
 namespace Notebook.Controllers
 {
@@ -44,6 +45,7 @@ namespace Notebook.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public IActionResult Delete(int id)
         {
 			User? user = _userService.GetUserById(id);
@@ -78,10 +80,35 @@ namespace Notebook.Controllers
         //         return View(user);
         //     }
 
-        //public async Task<IActionResult> LogIn(UserLogInDto user) 
-        //{
+        public async Task<IActionResult> LogIn()
+        {
+            return View();
+        }
 
-        //}
+        [HttpPost]
+        public async Task<IActionResult> LogIn(Common.Dto.UserLogInDto userLogInDto)
+        {
+            var user = _userService.Get(userLogInDto);
+
+            if (user != null)
+            {
+                var claims = new List<Claim>()
+                {
+                    new Claim(ClaimTypes.Name, user.Email)
+                };
+
+                var claimIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                    new ClaimsPrincipal(claimIdentity));
+
+                _logger.LogInformation($"{DateTime.Now}: user with {userLogInDto.Email} has logged in");
+
+                return RedirectToAction("Index");
+            }
+
+            return RedirectToAction("LogIn");
+        }
 
         [Authorize]
 		public async Task<IActionResult> LogOut()

@@ -36,10 +36,10 @@ namespace Notebook.BusinessLogic.Services
 			return users;
 		}
 
-		public User Get(UserAuthDto userAuthDto)
+		public User Get(UserLogInDto userLogInDto)
 		{
 			var user = _applicationContext.Users.FirstOrDefault(u =>
-				u.Email == userAuthDto.Email && u.Password == userAuthDto.Password);
+				u.Email == userLogInDto.Email && u.Password == userLogInDto.Password);
 
 			return user;
 		}

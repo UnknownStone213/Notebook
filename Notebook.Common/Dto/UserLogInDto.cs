@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Notebook.Common.Dto
 {
-	public class UserAuthDto
+	public class UserLogInDto
 	{
 		public string Email { get; set; }
 
