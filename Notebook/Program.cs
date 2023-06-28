@@ -12,10 +12,19 @@ string connection = builder.Configuration.GetConnectionString("DefaultConnection
 
 builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connection));
 builder.Services.AddControllersWithViews();
+builder.Services.AddAuthorization();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie();
-builder.Services.AddAuthorization();
-//builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
+builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
+
+var mappingConfig = new MapperConfiguration(mc =>
+{
+	mc.AddProfile(new MapperProfile());
+});
+
+var mapper = mappingConfig.CreateMapper();
+builder.Services.AddSingleton(mapper);
 
 var app = builder.Build();
 
