@@ -61,7 +61,7 @@ namespace Notebook.BusinessLogic.Services
 			_applicationContext.SaveChanges();
 		}
 
-        public void EditUser(User user)
+        public void Edit(User user)
         {
             _applicationContext.Users.Update(user);
             _applicationContext.SaveChanges();

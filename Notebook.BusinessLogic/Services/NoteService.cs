@@ -45,7 +45,7 @@ namespace Notebook.BusinessLogic.Services
             _applicationContext.SaveChanges();
         }
 
-        public void EditNote(Note note)
+        public void Edit(Note note)
         {
             _applicationContext.Notes.Update(note);
             _applicationContext.SaveChanges();

@@ -81,7 +81,7 @@ namespace Notebook.Controllers
         {
             if ((user.Role == "user" || user.Role == "admin") && (User.FindFirstValue(ClaimTypes.Email) == user.Email || User.FindFirstValue(ClaimTypes.Role) == "admin"))
             {
-                _userService.EditUser(user);
+                _userService.Edit(user);
                 return RedirectToAction("Index");
             }
             return RedirectToAction("Index");
@@ -102,7 +102,8 @@ namespace Notebook.Controllers
                 var claims = new List<Claim>()
                 {
                     new Claim(ClaimTypes.Email, user.Email),
-                    new Claim(ClaimTypes.Role, user.Role)
+                    new Claim(ClaimTypes.Role, user.Role),
+                    new Claim(type: "UserId", value: Convert.ToString(user.Id))
                 };
 
                 var claimIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -110,7 +111,7 @@ namespace Notebook.Controllers
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                     new ClaimsPrincipal(claimIdentity));
 
-                _logger.LogInformation($"{DateTime.Now}: user with {userLogInDto.Email} has logged in");
+                //_logger.LogInformation($"{DateTime.Now}: user with {userLogInDto.Email} has logged in");
 
                 return RedirectToAction("Index");
             }
@@ -124,9 +125,28 @@ namespace Notebook.Controllers
 			await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
 			return RedirectToAction("Index", "Home");
-		}
+        }
 
-        //public IActionResult
+        [Authorize(Roles = "user")]
+        public IActionResult CreateNote() 
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "user")]
+        public IActionResult CreateNote(NoteCreateDto noteCreateDto)
+        {
+            if (ModelState.IsValid)
+            {
+                noteCreateDto.Created = DateTime.Now;
+                noteCreateDto.UserId = Convert.ToInt32(User.FindFirst("UserId").Value);
+                _noteService.Create(noteCreateDto);
+
+                return RedirectToAction("Index", "Home");
+            }
+            return View(noteCreateDto);
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

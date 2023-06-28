@@ -16,6 +16,6 @@ namespace Notebook.BusinessLogic.Interfaces
 
         void DeleteNoteById(int id);
 
-        void EditNote(Note note);
+        void Edit(Note note);
     }
 }
