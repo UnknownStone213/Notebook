@@ -5,19 +5,21 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Notebook.BusinessLogic.Interfaces;
 
 namespace Notebook.Controllers
 {
     public class HomeController : Controller
     {
-        ApplicationContext db;
+        //ApplicationContext db;
         private readonly ILogger<HomeController> _logger;
+		private readonly IUserService _userService;
 
-        public HomeController(ILogger<HomeController> logger, ApplicationContext context)
+		public HomeController(ILogger<HomeController> logger, IUserService userService)
         {
             _logger = logger;
-            db = context;
-        }
+			_userService = userService;
+		}
 
         public async Task<IActionResult> Index()
         {
