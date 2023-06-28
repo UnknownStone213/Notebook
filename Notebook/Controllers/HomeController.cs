@@ -28,12 +28,14 @@ namespace Notebook.Controllers
             return View( _userService.GetAll());
         }
 
+        [Authorize(Roles = "admin")]
         public IActionResult CreateUser()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public IActionResult CreateUser(UserCreateDto userCreateDto)
         {
             if (ModelState.IsValid && (userCreateDto.Role == "user" || userCreateDto.Role == "admin"))
@@ -62,7 +64,7 @@ namespace Notebook.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             User? user = _userService.GetUserById(id);
-            if (User.FindFirstValue(ClaimTypes.Email) == user.Email)
+            if (User.FindFirstValue(ClaimTypes.Email) == user.Email || User.FindFirstValue(ClaimTypes.Role) == "admin")
             {
                 return View(user);
             }
@@ -75,7 +77,7 @@ namespace Notebook.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(User user)
         {
-            if (user.Role == "user" || user.Role == "admin")
+            if ((user.Role == "user" || user.Role == "admin") && (User.FindFirstValue(ClaimTypes.Email) == user.Email || User.FindFirstValue(ClaimTypes.Role) == "admin"))
             {
                 _userService.EditUser(user);
                 return RedirectToAction("Index");
