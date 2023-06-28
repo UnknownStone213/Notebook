@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Notebook.Models.User>
 
 <h2>A list of users</h2>
-<p><a asp-action="Create">Add user</a></p>
+<p><a asp-action="CreateUser">Add user</a></p>
 <table class="table">
     <tr><th>Id</th><th>Email</th><th>Login</th><th>Password</th><th>Role</th></tr>
     @foreach (var item in Model)

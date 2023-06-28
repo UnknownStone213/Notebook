@@ -43,5 +43,22 @@ namespace Notebook.BusinessLogic.Services
 
 			return user;
 		}
+
+		public User GetUserById(int id)
+		{
+			var user = _applicationContext.Users.FirstOrDefault(u =>
+				u.Id == id);
+
+			return user;
+		}
+
+		public void DeleteUserById(int id)
+		{
+			var user = _applicationContext.Users.FirstOrDefault(u =>
+				u.Id == id);
+
+			_applicationContext.Users.Remove(user);
+			_applicationContext.SaveChanges();
+		}
 	}
 }

@@ -6,12 +6,12 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Notebook.BusinessLogic.Interfaces;
+using Notebook.Common.Dto;
 
 namespace Notebook.Controllers
 {
     public class HomeController : Controller
     {
-        //ApplicationContext db;
         private readonly ILogger<HomeController> _logger;
 		private readonly IUserService _userService;
 
@@ -21,72 +21,69 @@ namespace Notebook.Controllers
 			_userService = userService;
 		}
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await db.Users.ToListAsync());
+            return View( _userService.GetAll());
         }
 
-        public IActionResult Create()
+        public IActionResult CreateUser()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(User user)
+        public IActionResult CreateUser(UserCreateDto userCreateDto)
         {
-            if (ModelState.IsValid && (user.Role == "user" || user.Role == "admin"))
+            if (ModelState.IsValid && (userCreateDto.Role == "user" || userCreateDto.Role == "admin"))
             {
-				db.Users.Add(user);
-				await db.SaveChangesAsync();
-				return RedirectToAction("Index");
+				_userService.Create(userCreateDto);
+
+				return RedirectToAction("Index", "Home");
 			}
-            return View(user);
+            return View(userCreateDto);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int id)
         {
-            if (id != null)
-            {
-                User? user = await db.Users.FirstOrDefaultAsync(p => p.Id == id);
-                if (user != null)
-                {
-                    db.Users.Remove(user);
-                    await db.SaveChangesAsync();
-                    return RedirectToAction("Index");
-                }
-            }
-            return NotFound();
-        }
-
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id != null)
-            {
-                User? user = await db.Users.FirstOrDefaultAsync(p => p.Id == id);
-                if (user != null) return View(user);
-            }
-            return NotFound();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Edit(User user)
-        {
-            if (user.Role == "user" || user.Role == "admin")
-            {
-				db.Users.Update(user);
-				await db.SaveChangesAsync();
-				return RedirectToAction("Index");
+			User? user = _userService.GetUserById(id);
+			if (user != null)
+			{
+				_userService.DeleteUserById(id);
+				return RedirectToAction("Index", "Home");
 			}
-            return View(user);
+            else 
+                return NotFound();
         }
+
+        //public async Task<IActionResult> Edit(int? id)
+        //{
+        //    if (id != null)
+        //    {
+        //        User? user = await db.Users.FirstOrDefaultAsync(p => p.Id == id);
+        //        if (user != null) return View(user);
+        //    }
+        //    return NotFound();
+        //}
+
+        //     [HttpPost]
+        //     public async Task<IActionResult> Edit(User user)
+        //     {
+        //         if (user.Role == "user" || user.Role == "admin")
+        //         {
+        //	db.Users.Update(user);
+        //	await db.SaveChangesAsync();
+        //	return RedirectToAction("Index");
+        //}
+        //         return View(user);
+        //     }
 
         //public async Task<IActionResult> LogIn(UserLogInDto user) 
         //{
 
         //}
 
-		[Authorize]
+        [Authorize]
 		public async Task<IActionResult> LogOut()
 		{
 			await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

@@ -15,5 +15,9 @@ namespace Notebook.BusinessLogic.Interfaces
 		List<User> GetAll();
 
 		User Get(UserAuthDto userAuthDto);
+
+		User GetUserById(int id);
+
+		void DeleteUserById(int id);
 	}
 }
