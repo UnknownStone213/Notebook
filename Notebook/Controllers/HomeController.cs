@@ -138,7 +138,7 @@ namespace Notebook.Controllers
         {
             if (ModelState.IsValid)
             {
-                noteCreateDto.Created = DateTime.Now;
+                //noteCreateDto.Created = DateTime.Now;
                 noteCreateDto.UserId = Convert.ToInt32(User.FindFirst("UserId").Value);
                 _noteService.Create(noteCreateDto);
 
