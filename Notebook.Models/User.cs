@@ -30,6 +30,6 @@ namespace Notebook.Models
         [StringLength(20, MinimumLength = 3)]
         public string Role { get; set; } = "user";
 
-        public ICollection<Note> Notes { get; set; }
+        public List<Note> Notes { get; set; }
     }
 }

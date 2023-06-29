@@ -14,6 +14,8 @@ namespace Notebook.BusinessLogic.Interfaces
 
         List<Note> GetAll();
 
+        List<Note> GetNotesByUserId(int id);
+
         void DeleteNoteById(int id);
 
         void Edit(Note note);

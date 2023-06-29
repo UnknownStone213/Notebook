@@ -1,23 +1,37 @@
-﻿@model IEnumerable<Notebook.Models.User>
+﻿@model Notebook.Models.UserNoteViewModel
 
-<h2>A list of users</h2>
 <p><a asp-action="CreateUser">Add user</a></p>
 <p><a asp-action="CreateNote">Create note</a></p>
+<h2>My notes:</h2>
 <table class="table">
-    <tr><th>Id</th><th>Email</th><th>Login</th><th>Password</th><th>Role</th></tr>
-    @foreach (var item in Model)
+    <tr><th>Id</th><th>Created</th><th>Name</th><th>Description</th><th>Photo</th></tr>
+    @foreach (var notes in Model.Notes)
     {
         <tr>
-            <td>@item.Id</td>
-            <td>@item.Email</td>
-            <td>@item.Login</td>
-            <td>@item.Password</td>
-            <td>@item.Role</td>
+            <td>@notes.Id</td>
+            <td>@notes.Created</td>
+            <td>@notes.Name</td>
+            <td>@notes.Description</td>
+            <td>@notes.Photo</td>
+        </tr>
+    }
+</table>
+<h2>A list of users:</h2>
+<table class="table">
+    <tr><th>Id</th><th>Email</th><th>Login</th><th>Password</th><th>Role</th></tr>
+    @foreach (var user in Model.Users)
+    {
+        <tr>
+            <td>@user.Id</td>
+            <td>@user.Email</td>
+            <td>@user.Login</td>
+            <td>@user.Password</td>
+            <td>@user.Role</td>
             <td>
-                <a asp-action="Edit" asp-controller="Home" asp-route-id="@item.Id">Edit</a>
+                <a asp-action="Edit" asp-controller="Home" asp-route-id="@user.Id">Edit</a>
             </td>
             <td>
-                <form asp-controller="Home" asp-action="Delete" method="post" asp-route-id="@item.Id">
+                <form asp-controller="Home" asp-action="Delete" method="post" asp-route-id="@user.Id">
                     <input type="submit" value="Delete" />
                 </form>
             </td>

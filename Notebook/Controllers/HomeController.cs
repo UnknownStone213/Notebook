@@ -27,7 +27,21 @@ namespace Notebook.Controllers
 
         public IActionResult Index()
         {
-            return View( _userService.GetAll());
+            List<User> users = _userService.GetAll();
+            List<Note> notes = new List<Note> { };
+
+            int? UserId = Convert.ToInt32(User.FindFirst("UserId")?.Value);
+            if (UserId != null)
+            {
+                notes = _noteService.GetNotesByUserId(UserId ?? default(int)); // if dont use default(int) = Error
+            }
+
+            UserNoteViewModel userNoteViewModel = new UserNoteViewModel 
+            {
+                Users = users,
+                Notes = notes
+            };
+            return View(userNoteViewModel);
         }
 
         //[Authorize(Roles = "admin")]
@@ -138,7 +152,6 @@ namespace Notebook.Controllers
         {
             if (ModelState.IsValid)
             {
-                //noteCreateDto.Created = DateTime.Now;
                 noteCreateDto.UserId = Convert.ToInt32(User.FindFirst("UserId").Value);
                 _noteService.Create(noteCreateDto);
 
