@@ -23,9 +23,13 @@ namespace Notebook.Models
 
 		[Required]
 		[DataType(DataType.Password)]
-		public string Password { get; set; }
+        [StringLength(50, MinimumLength = 3)]
+        public string Password { get; set; }
 
 		[Required]
-		public string Role { get; set; } = "user";
-	}
+        [StringLength(20, MinimumLength = 3)]
+        public string Role { get; set; } = "user";
+
+        public ICollection<Note> Notes { get; set; }
+    }
 }

@@ -119,7 +119,6 @@ namespace Notebook.Controllers
             return RedirectToAction("LogIn");
         }
 
-        [Authorize]
 		public async Task<IActionResult> LogOut()
 		{
 			await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
