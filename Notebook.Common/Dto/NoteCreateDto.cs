@@ -10,7 +10,7 @@ namespace Notebook.Common.Dto
     {
         public int UserId { get; set; }
 
-        public DateTime Created { get; set; } = DateTime.Now;
+        public DateTime Date { get; set; } = DateTime.Now.Date;
 
         public string Name { get; set; }
 

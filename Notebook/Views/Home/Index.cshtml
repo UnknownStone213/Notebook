@@ -1,15 +1,23 @@
 ﻿@model Notebook.Models.UserNoteViewModel
 
+@if (Model.User != null)
+{
+    <h2>Logged in as: @Model.User.Email, @Model.User.Role</h2>
+}
+else
+{
+    <h2>Note logged in.</h2>
+}
 <p><a asp-action="CreateUser">Add user</a></p>
 <p><a asp-action="CreateNote">Create note</a></p>
 <h2>My notes:</h2>
 <table class="table">
-    <tr><th>Id</th><th>Created</th><th>Name</th><th>Description</th><th>Photo</th></tr>
+    <tr><th>Id</th><th>Date</th><th>Name</th><th>Description</th><th>Photo</th></tr>
     @foreach (var notes in Model.Notes)
     {
         <tr>
             <td>@notes.Id</td>
-            <td>@notes.Created</td>
+            <td>@notes.Date</td>
             <td>@notes.Name</td>
             <td>@notes.Description</td>
             <td>@notes.Photo</td>

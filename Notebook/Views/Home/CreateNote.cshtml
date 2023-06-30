@@ -3,6 +3,11 @@
 <h2>Create Note</h2>
 <form asp-action="CreateNote" asp-controller="home">
     <p>
+        <label asp-for="Date">Date</label><br />
+        <input type="text" asp-for="Date" placeholder="@DateTime.Now.Date" />
+        <span asp-validation-for="Date"></span>
+    </p>
+    <p>
         <label asp-for="Name">Name</label><br />
         <input type="text" asp-for="Name" />
         <span asp-validation-for="Name"></span>

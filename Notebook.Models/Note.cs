@@ -18,7 +18,7 @@ namespace Notebook.Models
         public User User { get; set; }
 
         [Required]
-        public DateTime Created { get; set; } = DateTime.Now;
+        public DateTime Date { get; set; } = DateTime.Now.Date;
 
         [Required]
         [StringLength(50)]

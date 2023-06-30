@@ -29,17 +29,20 @@ namespace Notebook.Controllers
         {
             List<User> users = _userService.GetAll();
             List<Note> notes = new List<Note> { };
+            User user = null;
 
             int? UserId = Convert.ToInt32(User.FindFirst("UserId")?.Value);
             if (UserId != null)
             {
                 notes = _noteService.GetNotesByUserId(UserId ?? default(int)); // if dont use default(int) = Error
+                user = users.Find(x => x.Id == UserId);
             }
 
             UserNoteViewModel userNoteViewModel = new UserNoteViewModel 
             {
                 Users = users,
-                Notes = notes
+                Notes = notes,
+                User = user
             };
             return View(userNoteViewModel);
         }
