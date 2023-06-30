@@ -20,8 +20,10 @@ else
             <td>@note.Date</td>
             <td>@note.Name</td>
             <td>@note.Description</td>
-            <td>@note.Photo</td>
-            @* add edit note *@
+@*            <td>@note.Photo</td>
+*@            <td>
+                <a asp-action="EditNote" asp-controller="Home" asp-route-id="@note.Id">Edit</a>
+            </td>
             <td>
                 <form asp-controller="Home" asp-action="DeleteNote" method="post" asp-route-id="@note.Id">
                     <input type="submit" value="Delete" />

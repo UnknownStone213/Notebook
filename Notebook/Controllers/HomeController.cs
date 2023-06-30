@@ -29,7 +29,7 @@ namespace Notebook.Controllers
         {
             List<User> users = _userService.GetAll();
             List<Note> notes = new List<Note> { };
-            User user = null;
+            User? user = null;
 
             int? UserId = Convert.ToInt32(User.FindFirst("UserId")?.Value);
             if (UserId != null)
@@ -99,7 +99,6 @@ namespace Notebook.Controllers
             if ((user.Role == "user" || user.Role == "admin") && (User.FindFirstValue(ClaimTypes.Email) == user.Email || User.FindFirstValue(ClaimTypes.Role) == "admin"))
             {
                 _userService.Edit(user);
-                return RedirectToAction("Index");
             }
             return RedirectToAction("Index");
         }
@@ -147,6 +146,21 @@ namespace Notebook.Controllers
         public IActionResult CreateNote() 
         {
             return View();
+        }
+
+        [Authorize(Roles = "user")]
+        public IActionResult EditNote(int id)
+        {
+            Note note = _noteService.GetById(id);
+            return View(note);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "user")]
+        public IActionResult EditNote(Note note)
+        {
+            _noteService.Edit(note);
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]

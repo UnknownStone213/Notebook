@@ -29,6 +29,6 @@ namespace Notebook.Models
 
         //public List<string>? Categories { get; set; }
 
-        public byte[]? Photo { get; set; }
+        //public byte[]? Photo { get; set; }
     }
 }

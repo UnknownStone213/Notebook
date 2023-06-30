@@ -14,10 +14,10 @@ namespace Notebook.Common.Dto
 
         public string Name { get; set; }
 
-        public string? Description { get; set; }
+        public string? Description { get; set; } = null;
 
         //public List<string>? Categories { get; set; }
 
-        public byte[]? Photo { get; set; }
+        //public byte[]? Photo { get; set; } = null;
     }
 }

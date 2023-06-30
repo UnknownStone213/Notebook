@@ -1,29 +1,29 @@
 ﻿@model Notebook.Models.Note
 
-<h2>Create Note</h2>
-<form asp-action="CreateNote" asp-controller="home">
+<h2>Edit note</h2>
+<form asp-action="EditNote" asp-controller="home" asp-route-id="@Model">
     <p>
         <label asp-for="Date">Date</label><br />
-        <input type="text" asp-for="Date" value="@DateTime.Now.Date" />
+        <input type="text" asp-for="Date" value="@Model.Date" />
         <span asp-validation-for="Date"></span>
     </p>
     <p>
         <label asp-for="Name">Name</label><br />
-        <input type="text" asp-for="Name" />
+        <input type="text" asp-for="Name" value="@Model.Name" />
         <span asp-validation-for="Name"></span>
     </p>
     <p>
         <label asp-for="Description">Description</label><br />
-        <input type="text" asp-for="Description" />
+        <input type="text" asp-for="Description" value="@Model.Description" />
         <span asp-validation-for="Description"></span>
     </p>
 @*    <p>
         <label asp-for="Photo">Photo</label><br />
-        <input type="text" asp-for="Photo" />
+        <input type="text" asp-for="Photo" value="@Model.Photo" />
         <span asp-validation-for="Photo"></span>
     </p>
 *@    <p>
-        <input type="submit" value="Send" />
+        <input type="submit" value="Save" />
     </p>
 </form>
 
