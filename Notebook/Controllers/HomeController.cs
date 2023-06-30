@@ -34,7 +34,7 @@ namespace Notebook.Controllers
             int? UserId = Convert.ToInt32(User.FindFirst("UserId")?.Value);
             if (UserId != null)
             {
-                notes = _noteService.GetNotesByUserId(UserId ?? default(int)); // if dont use default(int) = Error
+                notes = _noteService.GetNotesByUserId(UserId ?? default); // if dont use default(int) = Error
                 user = users.Find(x => x.Id == UserId);
             }
 
@@ -161,6 +161,16 @@ namespace Notebook.Controllers
                 return RedirectToAction("Index", "Home");
             }
             return View(noteCreateDto);
+        }
+
+        //edit note
+
+        [HttpPost]
+        [Authorize(Roles = "user")]
+        public IActionResult DeleteNote(int id)
+        {
+            _noteService.DeleteNoteById(id);
+            return RedirectToAction("Index", "Home");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

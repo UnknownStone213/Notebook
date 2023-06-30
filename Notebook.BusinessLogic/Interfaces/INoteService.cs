@@ -1,4 +1,5 @@
-﻿using Notebook.Common.Dto;
+﻿using Microsoft.Identity.Client;
+using Notebook.Common.Dto;
 using Notebook.Models;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,8 @@ namespace Notebook.BusinessLogic.Interfaces
         List<Note> GetAll();
 
         List<Note> GetNotesByUserId(int id);
+
+        public Note GetById(int id);
 
         void DeleteNoteById(int id);
 

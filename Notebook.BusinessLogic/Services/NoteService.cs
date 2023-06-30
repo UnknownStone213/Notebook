@@ -42,6 +42,13 @@ namespace Notebook.BusinessLogic.Services
             return notes;
         }
 
+        public Note GetById(int id) 
+        {
+            Note note = _applicationContext.Notes.FirstOrDefault(u => u.Id == id);
+
+            return note;
+        }
+
         public void DeleteNoteById(int id)
         {
             var note = _applicationContext.Notes.FirstOrDefault(u =>

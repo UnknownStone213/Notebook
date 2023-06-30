@@ -6,21 +6,27 @@
 }
 else
 {
-    <h2>Note logged in.</h2>
+    <h2>Not logged in.</h2>
 }
 <p><a asp-action="CreateUser">Add user</a></p>
 <p><a asp-action="CreateNote">Create note</a></p>
 <h2>My notes:</h2>
 <table class="table">
     <tr><th>Id</th><th>Date</th><th>Name</th><th>Description</th><th>Photo</th></tr>
-    @foreach (var notes in Model.Notes)
+    @foreach (var note in Model.Notes)
     {
         <tr>
-            <td>@notes.Id</td>
-            <td>@notes.Date</td>
-            <td>@notes.Name</td>
-            <td>@notes.Description</td>
-            <td>@notes.Photo</td>
+            <td>@note.Id</td>
+            <td>@note.Date</td>
+            <td>@note.Name</td>
+            <td>@note.Description</td>
+            <td>@note.Photo</td>
+            @* add edit note *@
+            <td>
+                <form asp-controller="Home" asp-action="DeleteNote" method="post" asp-route-id="@note.Id">
+                    <input type="submit" value="Delete" />
+                </form>
+            </td>
         </tr>
     }
 </table>
@@ -33,7 +39,7 @@ else
             <td>@user.Id</td>
             <td>@user.Email</td>
             <td>@user.Login</td>
-            <td>@user.Password</td>
+            <td>*</td>
             <td>@user.Role</td>
             <td>
                 <a asp-action="Edit" asp-controller="Home" asp-route-id="@user.Id">Edit</a>
