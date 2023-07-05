@@ -11,6 +11,13 @@ else
 <p><a asp-action="CreateUser">Add user</a></p>
 <p><a asp-action="CreateNote">Create note</a></p>
 <h2>My notes:</h2>
+<form method="get">
+    <label class="control-label">Name: </label>
+    <input name="name"/>
+    <label class="control-label">Date: </label>
+    <input name="date" type="date"/>
+    <input type="submit" value="Filter notes" />
+</form>
 <table class="table">
     <tr><th>Id</th><th>Date</th><th>Name</th><th>Description</th><th>Photo</th></tr>
     @foreach (var note in Model.Notes)
@@ -20,8 +27,7 @@ else
             <td>@note.Date</td>
             <td>@note.Name</td>
             <td>@note.Description</td>
-@*            <td>@note.Photo</td>
-*@            <td>
+            <td>
                 <a asp-action="EditNote" asp-controller="Home" asp-route-id="@note.Id">Edit</a>
             </td>
             <td>

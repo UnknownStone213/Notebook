@@ -9,6 +9,7 @@ using Notebook.BusinessLogic.Interfaces;
 using Notebook.Common.Dto;
 using System.Security.Claims;
 using System.Runtime.CompilerServices;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Notebook.Controllers
 {
@@ -25,16 +26,20 @@ namespace Notebook.Controllers
             _noteService = noteService;
 		}
 
-        public IActionResult Index()
+        public IActionResult Index(string? name, DateTime? date)
         {
             List<User> users = _userService.GetAll();
-            List<Note> notes = new List<Note> { };
+            IEnumerable<Note> notes = new List<Note> { };
             User? user = null;
 
             int? UserId = Convert.ToInt32(User.FindFirst("UserId")?.Value);
             if (UserId != null)
             {
-                notes = _noteService.GetNotesByUserId(UserId ?? default); // if dont use default(int) = Error
+                notes = _noteService.GetNotesByUserId(UserId ?? default).Where(x => x.Name.Contains(name ?? "")); // if dont use ?? returns error
+                if (date != null)
+                {
+                    notes = notes.Where(x => x.Date.Date == date);
+                }
                 user = users.Find(x => x.Id == UserId);
             }
 
@@ -60,7 +65,6 @@ namespace Notebook.Controllers
             if (ModelState.IsValid && (userCreateDto.Role == "user" || userCreateDto.Role == "admin"))
             {
 				_userService.Create(userCreateDto);
-                //_logger.Log(LogLevel.None, $"New user {userCreateDto.Email} was createrd.", null);
 
                 return RedirectToAction("Index", "Home");
 			}
@@ -74,7 +78,6 @@ namespace Notebook.Controllers
 			User? user = _userService.GetUserById(id);
 			if (user != null)
 			{
-                //_logger.Log(LogLevel.None, $"User {user.Email} was deleted.", null);
                 _userService.DeleteUserById(id);
 				return RedirectToAction("Index", "Home");
 			}
@@ -156,7 +159,7 @@ namespace Notebook.Controllers
             {
                 noteCreateDto.UserId = Convert.ToInt32(User.FindFirst("UserId").Value);
                 _noteService.Create(noteCreateDto);
-                _logger.Log(LogLevel.None, $"User {noteCreateDto.UserId} created new note {noteCreateDto.GetInfo()}.", null);
+                _logger.Log(LogLevel.None, $"{DateTime.Now} - User {noteCreateDto.UserId} created new note {noteCreateDto.GetInfo()}.", null);
 
                 return RedirectToAction("Index", "Home");
             }
@@ -175,7 +178,7 @@ namespace Notebook.Controllers
         public IActionResult EditNote(Note note)
         {
             _noteService.Edit(note);
-            _logger.Log(LogLevel.None, $"Note {note.GetInfo()} was edited.", null);
+            _logger.Log(LogLevel.None, $"{DateTime.Now} - Note {note.GetInfo()} was edited.", null);
             return RedirectToAction("Index", "Home");
         }
 
@@ -183,7 +186,7 @@ namespace Notebook.Controllers
         [Authorize(Roles = "user")]
         public IActionResult DeleteNote(int id)
         {
-            _logger.Log(LogLevel.None, $"Note {_noteService.GetById(id).GetInfo()} was deleted.", null);
+            _logger.Log(LogLevel.None, $"{DateTime.Now} - Note {_noteService.GetById(id).GetInfo()} was deleted.", null);
             _noteService.DeleteNoteById(id);
             return RedirectToAction("Index", "Home");
         }
