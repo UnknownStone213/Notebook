@@ -1,3 +1,6 @@
 Note Id=1, UserId=1, Date=6/30/2023 0:00:00, Name=vvvv, Description=v was deleted.
 User 1 created new note NOTE: 7/5/2023 0:00:00, g, g.
 Note Id=13, UserId=1, Date=7/5/2023 0:00:00, Name=ggg, Description=g was edited.
+7/5/2023 19:23:20 - User 1 created new note NOTE: 7/5/2023 0:00:00, vvv, vvv.
+7/5/2023 20:25:08 - User 1 created new note NOTE: 7/5/2023 0:00:00, f, f.
+7/5/2023 20:25:17 - Note Id=2, UserId=1, Date=7/5/2023 0:00:00, Name=ff, Description=f was edited.

@@ -17,12 +17,11 @@
         <input type="text" asp-for="Description" />
         <span asp-validation-for="Description"></span>
     </p>
-@*    <p>
-        <label asp-for="Photo">Photo</label><br />
-        <input type="text" asp-for="Photo" />
+    <p>
+        <input type="file" alt="Submit Photo" asp-for="Photo" />
         <span asp-validation-for="Photo"></span>
     </p>
-*@    <p>
+    <p>
         <input type="submit" value="Send" />
     </p>
 </form>
