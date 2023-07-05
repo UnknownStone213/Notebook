@@ -19,5 +19,7 @@ namespace Notebook.Common.Dto
         //public List<string>? Categories { get; set; }
 
         //public byte[]? Photo { get; set; } = null;
+
+        public string GetInfo() { return $"NOTE: {Date}, {Name}, {Description}"; }
     }
 }

@@ -5,6 +5,7 @@ using Notebook.Mapper;
 using AutoMapper;
 using Notebook.BusinessLogic.Interfaces;
 using Notebook.BusinessLogic.Services;
+using Notebook;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,11 +20,13 @@ builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<INoteService, NoteService>();
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 
+builder.Logging.AddFile(Path.Combine(Directory.GetCurrentDirectory(), "logger.txt"));
+//builder.Logging.AddProvider(new FileLoggerProvider(Path.Combine(Directory.GetCurrentDirectory(), "logger.txt")));
+
 var mappingConfig = new MapperConfiguration(mc =>
 {
 	mc.AddProfile(new MapperProfile());
 });
-
 var mapper = mappingConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
 

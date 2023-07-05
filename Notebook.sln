@@ -5,13 +5,13 @@ VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notebook", "Notebook\Notebook.csproj", "{BD68E12D-F820-4440-9575-5EDF3A43FF9C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notebook.Mapper", "Notebook.Mapper\Notebook.Mapper.csproj", "{254BFCAB-BF50-41EA-B014-C82AA453D2AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notebook.Mapper", "Notebook.Mapper\Notebook.Mapper.csproj", "{254BFCAB-BF50-41EA-B014-C82AA453D2AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notebook.Models", "Notebook.Models\Notebook.Models.csproj", "{D9113AB5-C1DE-4457-A593-79A03A920DD5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notebook.Models", "Notebook.Models\Notebook.Models.csproj", "{D9113AB5-C1DE-4457-A593-79A03A920DD5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notebook.Common", "Notebook.Common\Notebook.Common.csproj", "{B52CB29E-3E18-4C83-9ED1-681F1B4543FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notebook.Common", "Notebook.Common\Notebook.Common.csproj", "{B52CB29E-3E18-4C83-9ED1-681F1B4543FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notebook.BusinessLogic", "Notebook.BusinessLogic\Notebook.BusinessLogic.csproj", "{F393DE89-408A-45F8-874D-C5B39F061E63}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notebook.BusinessLogic", "Notebook.BusinessLogic\Notebook.BusinessLogic.csproj", "{F393DE89-408A-45F8-874D-C5B39F061E63}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

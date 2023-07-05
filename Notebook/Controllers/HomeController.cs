@@ -60,8 +60,9 @@ namespace Notebook.Controllers
             if (ModelState.IsValid && (userCreateDto.Role == "user" || userCreateDto.Role == "admin"))
             {
 				_userService.Create(userCreateDto);
+                //_logger.Log(LogLevel.None, $"New user {userCreateDto.Email} was createrd.", null);
 
-				return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home");
 			}
             return View(userCreateDto);
         }
@@ -73,7 +74,8 @@ namespace Notebook.Controllers
 			User? user = _userService.GetUserById(id);
 			if (user != null)
 			{
-				_userService.DeleteUserById(id);
+                //_logger.Log(LogLevel.None, $"User {user.Email} was deleted.", null);
+                _userService.DeleteUserById(id);
 				return RedirectToAction("Index", "Home");
 			}
             else 
@@ -127,8 +129,6 @@ namespace Notebook.Controllers
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                     new ClaimsPrincipal(claimIdentity));
 
-                //_logger.LogInformation($"{DateTime.Now}: user with {userLogInDto.Email} has logged in");
-
                 return RedirectToAction("Index");
             }
 
@@ -148,6 +148,21 @@ namespace Notebook.Controllers
             return View();
         }
 
+        [HttpPost]
+        [Authorize(Roles = "user")]
+        public IActionResult CreateNote(NoteCreateDto noteCreateDto)
+        {
+            if (ModelState.IsValid)
+            {
+                noteCreateDto.UserId = Convert.ToInt32(User.FindFirst("UserId").Value);
+                _noteService.Create(noteCreateDto);
+                _logger.Log(LogLevel.None, $"User {noteCreateDto.UserId} created new note {noteCreateDto.GetInfo()}.", null);
+
+                return RedirectToAction("Index", "Home");
+            }
+            return View(noteCreateDto);
+        }
+
         [Authorize(Roles = "user")]
         public IActionResult EditNote(int id)
         {
@@ -160,29 +175,15 @@ namespace Notebook.Controllers
         public IActionResult EditNote(Note note)
         {
             _noteService.Edit(note);
+            _logger.Log(LogLevel.None, $"Note {note.GetInfo()} was edited.", null);
             return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
         [Authorize(Roles = "user")]
-        public IActionResult CreateNote(NoteCreateDto noteCreateDto)
-        {
-            if (ModelState.IsValid)
-            {
-                noteCreateDto.UserId = Convert.ToInt32(User.FindFirst("UserId").Value);
-                _noteService.Create(noteCreateDto);
-
-                return RedirectToAction("Index", "Home");
-            }
-            return View(noteCreateDto);
-        }
-
-        //edit note
-
-        [HttpPost]
-        [Authorize(Roles = "user")]
         public IActionResult DeleteNote(int id)
         {
+            _logger.Log(LogLevel.None, $"Note {_noteService.GetById(id).GetInfo()} was deleted.", null);
             _noteService.DeleteNoteById(id);
             return RedirectToAction("Index", "Home");
         }
