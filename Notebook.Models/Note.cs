@@ -30,5 +30,7 @@ namespace Notebook.Models
         //public List<string>? Categories { get; set; }
 
         //public byte[]? Photo { get; set; }
+
+        public string GetInfo() { return $"Id={Id}, UserId={UserId}, Date={Date}, Name={Name}, Description={Description}"; }
     }
 }

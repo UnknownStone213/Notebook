@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Notebook.BusinessLogic.Interfaces;
 using Notebook.Common.Dto;
 using Notebook.Models;
@@ -60,7 +62,6 @@ namespace Notebook.BusinessLogic.Services
         public void Edit(Note note)
         {
             _applicationContext.Notes.Update(note);
-            //Console.WriteLine($"{note.Id}, {note.UserId}, {note.Date}, {note.Name}, {note.Description}, ");
             _applicationContext.SaveChanges();
         }
     }

@@ -2,9 +2,19 @@
 
 <h2>Edit note</h2>
 <form asp-action="EditNote" asp-controller="home" asp-route-id="@Model">
+    <p hidden>
+        <label asp-for="Id">Id</label><br />
+        <input type="text" asp-for="Id" value="@Model.Id" />
+        <span asp-validation-for="Id"></span>
+    </p>
+    <p hidden>
+        <label asp-for="UserId" >UserId</label><br />
+        <input type="text" asp-for="UserId" value="@Model.UserId" />
+        <span asp-validation-for="UserId"></span>
+    </p>
     <p>
         <label asp-for="Date">Date</label><br />
-        <input type="text" asp-for="Date" value="@Model.Date" />
+        <input type="datetime" asp-for="Date" value="@Model.Date" />
         <span asp-validation-for="Date"></span>
     </p>
     <p>
@@ -26,7 +36,3 @@
         <input type="submit" value="Save" />
     </p>
 </form>
-
-<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.5.1.min.js"></script>
-<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.17.0/jquery.validate.min.js"></script>
-<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.10/jquery.validate.unobtrusive.min.js"></script>
